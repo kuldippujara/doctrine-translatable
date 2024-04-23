@@ -15,17 +15,15 @@ use Prezent\Doctrine\Translatable\TranslatableInterface;
 
 trait TranslationTrait
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @ORM\Column(name="id", type="integer")
-     */
+
+    #[ORM\Column(name: 'id', type: 'integer', nullable: false)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     protected $id;
 
-    /**
-     * @ORM\Column(name="locale", type="string")
-     * @Prezent\Locale
-     */
+
+    #[ORM\Column(name: 'locale', type: 'string')]
+    #[Prezent\Locale]
     protected $locale;
 
     /**
@@ -47,7 +45,7 @@ trait TranslationTrait
     {
         return $this->translatable;
     }
-    
+
     /**
      * Set the translatable object
      *
@@ -59,18 +57,18 @@ trait TranslationTrait
         if ($this->translatable == $translatable) {
             return $this;
         }
-    
+
         $old = $this->translatable;
         $this->translatable = $translatable;
-    
+
         if ($old !== null) {
             $old->removeTranslation($this);
         }
-    
+
         if ($translatable !== null) {
             $translatable->addTranslation($this);
         }
-    
+
         return $this;
     }
 
